@@ -1,9 +1,3 @@
-// const blogs = [
-//   { title: 'The name of the wind', snippet: 'Lorem ipsum dolor sit.' },
-//   { title: 'The last of us', snippet: 'Lorem ipsum dolor sit.' },
-//   { title: 'Stay safe and reply', snippet: 'Lorem ipsum dolor sit.' },
-// ];
-
 const Blog = require('../model/Blog');
 
 exports.renderIndex = (req, res) => {
@@ -24,6 +18,33 @@ exports.renderBlogPage = async (req, res) => {
     res.status(200).render('index', { title: 'Blogs', blogs });
   } catch (e) {
     console.log(e.message);
-    res.status(400).json({ error: e.message });
+  }
+};
+
+exports.addBlog = async (req, res) => {
+  try {
+    await Blog.create(req.body);
+    res.redirect('/blogs');
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+exports.getSingleBlog = async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    res.render('details', { blog, title: 'Blog Details' });
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+exports.deleteBlog = async (req, res) => {
+  try {
+    await Blog.findByIdAndDelete(req.params.id);
+    res.json({ redirectUrl: '/blogs' });
+  } catch (e) {
+    console.log(e.message);
   }
 };

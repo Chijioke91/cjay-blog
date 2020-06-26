@@ -5,9 +5,11 @@
     <div class="blogs content">
       <h2>All Blogs</h2>
 
-      <% if(blogs.length){ %> <% blogs.forEach(({title, snippet}) => {%>
-      <h1 class="title"><%= title %></h1>
-      <p class="snippet"><%= snippet %></p>
+      <% if(blogs.length){ %> <% blogs.forEach(({id, title, snippet}) => {%>
+        <a class="single" href="/blogs/<%=id%>">
+          <h1 class="title"><%= title %></h1>
+          <p class="snippet"><%= snippet %></p>
+        </a>
       <% }) %> <% }else{ %>
       <p>There are no blogs to display</p>
       <%}%>

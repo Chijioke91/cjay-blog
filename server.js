@@ -13,6 +13,8 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
+app.use(express.urlencoded({ extended: true }));
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
